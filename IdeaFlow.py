@@ -2,7 +2,7 @@
 import discord
 from discord.ext import commands
 
-# Replace with your actual channel IDs - enable developer mode in Discord to get these IDs
+# Replace with your actual channel IDs - enable developer mode in Discord settings to get these IDs
 INPUT_CHANNEL_ID = 123456789012345678  # ID of channel where trade ideas are typed
 OUTPUT_CHANNEL_ID = 876543210987654321  # ID of channel where embed is posted
 
