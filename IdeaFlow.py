@@ -3,8 +3,8 @@ import discord
 from discord.ext import commands
 
 # Replace with your actual channel IDs - enable developer mode in Discord settings to get these IDs
-INPUT_CHANNEL_ID = 123456789012345678  # ID of channel where trade ideas are typed
-OUTPUT_CHANNEL_ID = 876543210987654321  # ID of channel where embed is posted
+INPUT_CHANNEL_ID = 123456789012345678  # ID of channel where trade ideas are typed - ideally a private channel not available to everyone
+OUTPUT_CHANNEL_ID = 876543210987654321  # ID of channel where embed is posted - public channel
 
 # Intents with message content access - ensure the Bot has the required permissions in Discord developer portal - Presence Intent and Message COntent Indtent
 intents = discord.Intents.default()
@@ -23,7 +23,7 @@ async def on_message(message):
     if message.channel.id != INPUT_CHANNEL_ID or message.author.bot:
         return
 
-    # Expected message format: [ticker] [buy/sell] [limit/market] [price/market current] [stop loss] [take profit]
+    # Expected message format: [ticker or asset] [buy/sell] [limit/market] [price/market current] [stop loss] [take profit]
     parts = message.content.split()
     if len(parts) != 6:
         await message.channel.send("❌ Invalid format. Use: `[ticker] [buy/sell] [limit/market] [price/market current] [stop loss] [take profit]`")
@@ -31,7 +31,7 @@ async def on_message(message):
 
     ticker, action, order_type, entry, sl, tp = parts
 
-    # Build the embed
+    # Build the embed using the discord lib
     embed = discord.Embed(
         title=f"{ticker.upper()} - {action.upper()}",
         description=f"**{order_type.upper()} ORDER**\n"
